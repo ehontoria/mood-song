@@ -1,33 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Webcam from 'react-webcam';
-
-function Face(props) {
-  return <div> 
-    <Webcam
-        audio={false}
-        height={350}
-        ref={props.ref}
-        screenshotFormat="image/jpeg"
-        width={350}
-    />
-    <button onClick={props.capture}> face </button>
-  </div>;
-}
-
-function Song() {
-    return <div> song </div>;
-}
+//import Face from './modules/Face.js';
+//import Song from './modules/Song.js';
+import {Face, Song} from './modules/modules.js';
 
 class App extends Component {
-  setRef = (webcam) => {
-    this.webcam = webcam;
-  }
-  
-  capture = () => {
-    const imageSrc = this.webcam.getScreenshot();
-  }
   render() {
     return (
       <div className="App">
@@ -38,9 +16,8 @@ class App extends Component {
         <p className="App-intro">
             Please make sure your webcam is on and enabled.
         </p>
-        <Face ref={this.setRef} capture={this.capture}>
-        </Face>
-        <Song></Song>
+        <Face classname="Face"> </Face>
+        <Song classname="Song"> </Song>
       </div>
     );
   }
