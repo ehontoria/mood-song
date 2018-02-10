@@ -1,6 +1,6 @@
 # mood-song
 * HackBeanpot 2018 Project
 * Collaborators:
-** Axel Sankara
+** Axel Simms
 ** Joseph Gabay
 ** Anjaneya naik
