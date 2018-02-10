@@ -15,12 +15,22 @@ class SpotifyController:
         token = util.prompt_for_user_token(username, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI,scope = scopeType)
         self.spot = spotipy.Spotify(auth=token)
         
-    def pause(self):
-        self.spot.pause_playback()
-
-    def getC(self):
-        return self.spot.currently_playing()
         
+    def pause(self):
+        try:
+            self.spot.pause_playback()
+        except  spotipy.client.SpotifyException:
+            print("Already paused.")
 
-spotcontr = SpotifyController()
-cur = spotcontr.getC()
+    def play(self):
+        try:
+            self.spot.start_playback()
+        except  spotipy.client.SpotifyException:
+            print("Already playing.")
+
+    def setSong(self,songUri):
+        self.spot.start_playback(uris=[songUri])
+        self.play()
+                
+
+
