@@ -2,6 +2,7 @@
 
 import requests
 import json
+import indicoio
 
 apiroot='http://api.musixmatch.com/ws/1.1/'
 
@@ -9,12 +10,13 @@ grabber='track.lyrics.get?track_id='
 
 mmapikey = "&apikey=c00142a8f220230892ebcc53784db989"
 
+indicoKey ='aa4db01d2a72ceab00fd648d1c8d3583'
+
 testid='15953433'
 
 
-
-data = json.loads(res.content,encoding="UTF-8")
-
+#config indico
+indicoio.config.api_key = indicoKey
 
 
 def getLyrics(songID):
@@ -26,18 +28,26 @@ def getLyrics(songID):
 
     #Strip disclaimer and extra data:
     if lyrics.endswith('\n\n...\n\n******* This Lyrics is NOT for Commercial use *******'):
-        return lyrics = lyrics[:len('\n\n...\n\n******* This Lyrics is NOT for Commercial use *******')]
+        return lyrics[:len('\n\n...\n\n******* This Lyrics is NOT for Commercial use *******')]
 
     else:
         #panic - aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
         return 0
 
-def getScore(lyrics)
-
+def getScore(lyrics):
+    emotionScore = indicoio.emotion(lyrics)
+    print (emotionScore)
     
 
+def removeNewline(lyrics):
+    return lyrics.replace("\n",". ")
     
     
-    
+def get100Songs(page=1):
+    #Returns list of songs, with dictionary of: title, artist, track ID no
+    res = requests.get(apiroot + "chart.tracks.get?page=" + str(page) + "&page_size=100&f_has_lyrics=1" + mmapikey)
+    data = json.loads(res.content,encoding="UTF-8")
+
+    return data
     
