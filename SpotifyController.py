@@ -8,7 +8,6 @@ SPOTIPY_CLIENT_SECRET="2efe887783454bae8aa67492d33b4ddc"
 SPOTIPY_REDIRECT_URI="http://localhost/"
 
 scopeType = 'user-modify-playback-state,user-read-currently-playing'
-#token = "AQAZf1wmSO80gorJ4PnntZZ2qNrIKFjuJXyvTxyE6BMZJzXu4vB2ZIWs0uT4Ww2AEQK0zKnUZpFIwjjxpjdNSHBffAUCiD9Z-S50kveCbV-862ON836FF9iuyZzu0juJxcrmKt1noaW5co3d3WDYL3zZshsS88oScWQJCDNNM8Rypv-uFTTp"
 
 class SpotifyController:
     def __init__(self, username="electriczap4"):
