@@ -31,13 +31,14 @@ def getLyrics(songID):
         return lyrics[:len('\n\n...\n\n******* This Lyrics is NOT for Commercial use *******')]
 
     else:
+        return lyrics
         #panic - aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-        return 0
+       # return 0
 
 def getScore(lyrics):
     emotionScore = indicoio.emotion(lyrics)
-    print (emotionScore)
+    return emotionScore
     
 
 def removeNewline(lyrics):
@@ -47,7 +48,14 @@ def removeNewline(lyrics):
 def get100Songs(page=1):
     #Returns list of songs, with dictionary of: title, artist, track ID no
     res = requests.get(apiroot + "chart.tracks.get?page=" + str(page) + "&page_size=100&f_has_lyrics=1" + mmapikey)
-    data = json.loads(res.content,encoding="UTF-8")
+    data = json.loads(res.content,encoding="UTF-8")["message"]["body"]["track_list"]
+    
+    results = []
 
-    return data
+    for i in data:
+        i = i["track"]
+
+        results.append({"track_id":i["track_id"], "title":i["track_name"],"artist":i["artist_name"]})
+
+    return results
     
