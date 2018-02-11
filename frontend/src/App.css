@@ -21,3 +21,8 @@
   font-size: large;
 }
 
+.Webcam {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
