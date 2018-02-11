@@ -3,23 +3,28 @@ import indicoio
 import json
 import math
 import SpotifyController
+import scipy.misc
 
 indicoKey ='aa4db01d2a72ceab00fd648d1c8d3583'
 
 spot = SpotifyController.SpotifyControl()
 
-cam = VideoCapture(0)
 
 f = open("finaldata.json")
 songList = json.load(f)
 
 indicoio.config.api_key = indicoKey
 def getWebCamMood():
+    
+    cam = VideoCapture(0)
     s,img = cam.read()
-    print("image captured")
+    print("Image Captured - Processing")
           
     results = indicoio.analyze_image(img, apis=["fer"])
-    print(results["fer"])
+
+    #temp save
+    scipy.misc.imsave("cap.jpg", img)
+    
     return results['fer']
 
 
@@ -39,14 +44,25 @@ def findSong(mood):
         if score < bestScore:
             bestScore = score
             best = i
+
+    print()
+    print("Finished.")
+    print()
+    print()
+    print("Selected song: " + best["title"] + " by " + best["artist"])
+    print()
+    print("Your mood: " + str(mood))
+    print("Songs mood: " + str(best["mood"]))
+    print("Difference score: " + str(score))
+
     return best
 
 def toSpot(songinfo):
-    songID = spot.findSong(songInfo)
+    songID = spot.findSong(songinfo)
     spot.setSong(songID)
     spot.play()
 
     
-print(findSong(getWebCamMood()))
+toSpot(findSong(getWebCamMood()))
 
 

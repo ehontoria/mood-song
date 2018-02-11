@@ -25,7 +25,8 @@ class SpotifyControl:
         try:
             self.spot.start_playback()
         except  spotipy.client.SpotifyException:
-            print("Already playing.")
+            #print("Already playing.")
+            pass
 
     def setSong(self,songUri):
         self.spot.start_playback(uris=[songUri])
@@ -36,6 +37,6 @@ class SpotifyControl:
 
         results = self.spot.search(title,limit=1)
         #return results
-        return results["tracks"]["items"][0]["id"]
+        return results["tracks"]["items"][0]["uri"]
 
 inst = SpotifyControl()
