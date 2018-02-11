@@ -41,4 +41,12 @@ def findSong(mood):
             best = i
     return best
 
+def toSpot(songinfo):
+    songID = spot.findSong(songInfo)
+    spot.setSong(songID)
+    spot.play()
+
+    
 print(findSong(getWebCamMood()))
+
+

@@ -35,7 +35,7 @@ class SpotifyControl:
         title = songinfo["title"]
 
         results = self.spot.search(title,limit=1)
-        return results["tracks"]["items"]["id"]
+        #return results
+        return results["tracks"]["items"][0]["id"]
 
 inst = SpotifyControl()
-inst.findSong({"title":"roll in peace"})
