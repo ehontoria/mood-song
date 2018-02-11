@@ -9,7 +9,7 @@ SPOTIPY_REDIRECT_URI="http://localhost/"
 
 scopeType = 'user-modify-playback-state,user-read-currently-playing'
 
-class SpotifyController:
+class SpotifyControl:
     def __init__(self, username="electriczap4"):
         token = util.prompt_for_user_token(username, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI,scope = scopeType)
         self.spot = spotipy.Spotify(auth=token)
@@ -31,5 +31,11 @@ class SpotifyController:
         self.spot.start_playback(uris=[songUri])
         self.play()
                 
+    def findSong(self, songinfo):
+        title = songinfo["title"]
 
+        results = self.spot.search(title,limit=1)
+        return results["tracks"]["items"]["id"]
 
+inst = SpotifyControl()
+inst.findSong({"title":"roll in peace"})
